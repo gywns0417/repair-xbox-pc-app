@@ -5,7 +5,7 @@
 [![Unofficial](https://img.shields.io/badge/Microsoft-비공식-lightgrey)](#상표-고지)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green)](#라이선스)
 
-**English:** [README.md](README.en.md)
+**English:** [READMEen.md](READMEen.md)
 
 Xbox 앱, PC Game Pass, Microsoft Store 설치 실패가 Windows Update 손상이나 오래된 신뢰 루트 인증서 때문에 발생하는 경우 이를 복구하는 비공식 Windows 관리자 도구입니다.
 이 도구는 Xbox 앱 또는 Microsoft Store 설치 중 `0x80096004` 같은 오류가 발생하는 Windows PC를 위해 만들었습니다. 특히 Windows Update가 오랫동안 비활성화되어 있었거나, Windows Update 작업 폴더가 손상된 환경에서 도움이 됩니다.
