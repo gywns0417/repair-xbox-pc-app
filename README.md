@@ -47,13 +47,28 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ---
 
+## 반드시 해야 하는 마무리 절차
+
+먼저 이 복구 도구를 실행한 뒤, Microsoft Store에서 아래 과정을 끝까지 진행해야 합니다.
+
+1. 이 도구를 관리자 권한으로 실행합니다.
+2. Microsoft Store를 엽니다.
+3. Xbox 앱에서 사용할 Microsoft 계정으로 Microsoft Store에 로그인합니다.
+4. Microsoft Store에서 Xbox 앱을 업데이트합니다.
+5. Xbox 앱을 완전히 종료한 뒤 다시 실행합니다.
+
+인증서와 Windows Update 상태를 복구한 뒤 Microsoft Store를 통해 Xbox 앱을 업데이트해야 최종적으로 오류가 해결되는 경우가 많습니다.
+
+---
+
 ## 시작하기
 
 1. 최신 릴리스를 다운로드하거나 저장소를 클론합니다.
 2. PowerShell을 우클릭해 **관리자 권한으로 실행**합니다.
 3. 스크립트 또는 실행 파일을 실행합니다.
 4. Windows Update, BITS, Cryptographic Services, Microsoft Store Install Service가 `Running`으로 표시되는지 확인합니다.
-5. Microsoft Store를 열고 Xbox 앱 또는 PC Game Pass 설치를 다시 시도합니다.
+5. 위의 마무리 절차를 Microsoft Store에서 진행합니다.
+
 
 ---
 
