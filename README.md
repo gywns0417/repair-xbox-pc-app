@@ -160,9 +160,7 @@ if ($result.Errors.Count -gt 0) {
 ## 상표 고지
 
 Microsoft, Windows, Microsoft Store, Xbox, Game Pass는 Microsoft 그룹사의 상표입니다.
-
-**이 프로젝트는 Microsoft와 관련이 없으며, Microsoft의 승인, 보증, 후원, 제휴를 받은 공식 도구가 아닙니다. 제품명은 호환성과 이 도구가 복구하려는 설치 오류를 설명하기 위해서만 사용됩니다.
-**
+**이 프로젝트는 Microsoft와 관련이 없으며, Microsoft의 승인, 보증, 후원, 제휴를 받은 공식 도구가 아닙니다. 제품명은 호환성과 이 도구가 복구하려는 설치 오류를 설명하기 위해서만 사용됩니다.**
 ---
 
 ## 라이선스
