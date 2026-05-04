@@ -49,13 +49,27 @@ After the tool finishes, retry the Xbox app, PC Game Pass, or Microsoft Store in
 
 ---
 
+## Required Final Steps
+
+Run the repair tool first, then finish the fix from Microsoft Store:
+
+1. Run this tool as administrator.
+2. Open Microsoft Store.
+3. Sign in with the Microsoft account you will use in the Xbox app.
+4. In Microsoft Store, update the Xbox app.
+5. Close and restart the Xbox app.
+
+The repair is usually not complete until the Xbox app is updated through Microsoft Store after the certificate and Windows Update repair.
+
+---
+
 ## Getting Started
 
 1. Download the latest release or clone this repository.
 2. Right-click PowerShell and choose **Run as administrator**.
 3. Run the script or executable.
 4. Confirm that Windows Update, BITS, Cryptographic Services, and Microsoft Store Install Service report `Running`.
-5. Open Microsoft Store and retry the Xbox app or PC Game Pass install.
+5. Follow the required final steps above in Microsoft Store.
 
 ---
 
