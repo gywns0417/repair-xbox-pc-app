@@ -4,6 +4,7 @@
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE)](#quick-run)
 [![Unofficial](https://img.shields.io/badge/Microsoft-Unofficial-lightgrey)](#trademark-notice)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green)](#license)
+<img width="2172" height="724" alt="7155348a-a341-4ff1-9ba2-2d1f115b60d5" src="https://github.com/user-attachments/assets/87aaacc0-2037-49cd-a58c-7009e5b39ae4" />
 
 **Korean:** [READMEko.md](README.md)
 
