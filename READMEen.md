@@ -5,7 +5,7 @@
 [![Unofficial](https://img.shields.io/badge/Microsoft-Unofficial-lightgrey)](#trademark-notice)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green)](#license)
 
-**Korean:** [README.ko.md](README.ko.md)
+**Korean:** [READMEko.md](README.md)
 
 Fixes common Xbox app, PC Game Pass, and Microsoft Store installation failures caused by broken Windows Update state or stale trusted root certificates.
 
