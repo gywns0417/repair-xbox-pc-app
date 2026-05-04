@@ -115,7 +115,7 @@ On PC bang, school, company, or other managed PCs, run it only with permission f
 
 ## Non-Goals
 
-This project does not:
+This project does **not**:
 
 - Bypass Xbox, Game Pass, Microsoft Store, payment, account, region, DRM, or license checks
 - Patch or modify Microsoft Store, Xbox app, or game binaries
@@ -158,33 +158,11 @@ if ($result.Errors.Count -gt 0) {
 
 ---
 
-## Repository Naming and Topics
-
-Search-friendly repository names:
-
-- `xbox-app-store-0x80096004-fix`
-- `xbox-store-cert-repair`
-- `microsoft-store-xbox-app-repair`
-
-Recommended GitHub topics:
-
-- `xbox-app`
-- `game-pass`
-- `microsoft-store`
-- `windows-update`
-- `0x80096004`
-- `root-certificates`
-- `powershell`
-- `windows-10`
-- `windows-11`
-
----
-
 ## Trademark Notice
 
 Microsoft, Windows, Microsoft Store, Xbox, and Game Pass are trademarks of the Microsoft group of companies.
 
-This project is independent and is not affiliated with, endorsed by, sponsored by, or approved by Microsoft. Product names are used only to describe compatibility and the installation errors this tool is intended to repair.
+**This project is independent and is not affiliated with, endorsed by, sponsored by, or approved by Microsoft. Product names are used only to describe compatibility and the installation errors this tool is intended to repair.**
 
 ---
 
