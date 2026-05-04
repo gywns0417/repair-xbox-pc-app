@@ -1,0 +1,179 @@
+# Xbox App / Microsoft Store 0x80096004 Repair Tool
+
+[![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4)](#requirements)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE)](#quick-run)
+[![Unofficial](https://img.shields.io/badge/Microsoft-Unofficial-lightgrey)](#trademark-notice)
+[![License](https://img.shields.io/badge/License-Apache--2.0-green)](#license)
+
+**Korean:** [README.ko.md](README.ko.md)
+
+Fixes common Xbox app, PC Game Pass, and Microsoft Store installation failures caused by broken Windows Update state or stale trusted root certificates.
+
+This tool was created for Windows PCs where the Xbox app or Microsoft Store fails with errors such as `0x80096004`, often after Windows Update has been disabled for a long time or its working folders have been damaged.
+
+It does **not** bypass Xbox, Game Pass, Microsoft Store, account, payment, region, DRM, or license checks.
+
+---
+
+## What It Fixes
+
+| Symptom | What this tool checks or repairs |
+| --- | --- |
+| Xbox app install fails from Microsoft Store | Starts Microsoft Store and Windows Update related services |
+| PC Game Pass app install fails | Refreshes trusted root certificates used for signature validation |
+| `0x80096004` during Store install | Repairs certificate trust state through Windows Update root sync |
+| `wuauserv` will not start | Restores Windows Update service startup and required folders |
+| `The system cannot find the path specified` from Windows Update | Repairs `C:\Windows\SoftwareDistribution` when it is missing or blocked by a file |
+| Store installs fail on PC bangs, public PCs, or long-frozen Windows images | Restores the minimum update/certificate state needed for Store package validation |
+
+`0x80096004` is commonly associated with `TRUST_E_CERT_SIGNATURE`, which can happen when Windows cannot validate a Store package signature because its trusted root certificate store is stale or Windows Update cannot fetch the required trust data.
+
+---
+
+## Quick Run
+
+Run from an elevated PowerShell prompt:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\XboxGamePass_PCBang_Fix.ps1
+```
+
+Or run the packaged executable as administrator:
+
+```powershell
+.\XboxGamePass_PCBang_Fix.exe
+```
+
+After the tool finishes, retry the Xbox app, PC Game Pass, or Microsoft Store installation.
+
+---
+
+## Getting Started
+
+1. Download the latest release or clone this repository.
+2. Right-click PowerShell and choose **Run as administrator**.
+3. Run the script or executable.
+4. Confirm that Windows Update, BITS, Cryptographic Services, and Microsoft Store Install Service report `Running`.
+5. Open Microsoft Store and retry the Xbox app or PC Game Pass install.
+
+---
+
+## What It Does
+
+The repair flow is intentionally small and transparent:
+
+| Step | Action |
+| --- | --- |
+| 1 | Removes common Windows Update blocking policy values when present: `DisableWindowsUpdateAccess`, `NoAutoUpdate`, `UseWUServer` |
+| 2 | Repairs Windows Update working folders: `SoftwareDistribution`, `DataStore`, `Download`, and `catroot2` |
+| 3 | If `C:\Windows\SoftwareDistribution` is a file instead of a directory, backs it up as `.blocked-file.YYYYMMDDHHMMSS.bak` and recreates the directory |
+| 4 | Enables and starts `wuauserv`, `BITS`, `CryptSvc`, `UsoSvc`, `DoSvc`, and `InstallService` |
+| 5 | Generates a root certificate store file with `certutil -generateSSTFromWU` |
+| 6 | Imports the certificates into the trusted root store with `certutil -addstore -f Root` |
+
+---
+
+## Requirements
+
+- Windows 10 or Windows 11
+- Windows PowerShell 5.1 or later
+- Administrator privileges
+- Network access to Windows Update certificate endpoints
+- Permission to modify the target PC
+
+---
+
+## Safety Notes
+
+Use this tool only on a PC you own or administer, or on a PC where the owner or administrator has explicitly allowed this repair.
+
+The tool can change:
+
+- Windows Update policy values
+- Windows service startup settings
+- Windows Update working folders
+- The local machine trusted root certificate store
+
+On PC bang, school, company, or other managed PCs, run it only with permission from the system owner or administrator.
+
+---
+
+## Non-Goals
+
+This project does not:
+
+- Bypass Xbox, Game Pass, Microsoft Store, payment, account, region, DRM, or license checks
+- Patch or modify Microsoft Store, Xbox app, or game binaries
+- Modify game files
+- Collect account information
+- Contact a custom remote server
+- Register a startup task
+- Stay resident in the background
+- Disable antivirus or endpoint protection
+
+---
+
+## Build
+
+The executable is a small C# launcher that runs the PowerShell repair script. If the `.ps1` file is next to the executable, the launcher uses it. If the executable is copied alone, it extracts the embedded script to a temporary folder and runs that copy.
+
+Build from Windows PowerShell:
+
+```powershell
+$src = ".\XboxGamePass_PCBang_Fix_Launcher.cs"
+$script = ".\XboxGamePass_PCBang_Fix.ps1"
+$out = ".\XboxStoreCertRepair.exe"
+
+Add-Type -AssemblyName Microsoft.CSharp
+$provider = New-Object Microsoft.CSharp.CSharpCodeProvider
+$params = New-Object System.CodeDom.Compiler.CompilerParameters
+$params.GenerateExecutable = $true
+$params.GenerateInMemory = $false
+$params.OutputAssembly = $out
+$params.CompilerOptions = "/target:exe"
+[void]$params.ReferencedAssemblies.Add("System.dll")
+[void]$params.EmbeddedResources.Add($script)
+$result = $provider.CompileAssemblyFromFile($params, $src)
+
+if ($result.Errors.Count -gt 0) {
+    $result.Errors | ForEach-Object { $_.ToString() }
+    exit 1
+}
+```
+
+---
+
+## Repository Naming and Topics
+
+Search-friendly repository names:
+
+- `xbox-app-store-0x80096004-fix`
+- `xbox-store-cert-repair`
+- `microsoft-store-xbox-app-repair`
+
+Recommended GitHub topics:
+
+- `xbox-app`
+- `game-pass`
+- `microsoft-store`
+- `windows-update`
+- `0x80096004`
+- `root-certificates`
+- `powershell`
+- `windows-10`
+- `windows-11`
+
+---
+
+## Trademark Notice
+
+Microsoft, Windows, Microsoft Store, Xbox, and Game Pass are trademarks of the Microsoft group of companies.
+
+This project is independent and is not affiliated with, endorsed by, sponsored by, or approved by Microsoft. Product names are used only to describe compatibility and the installation errors this tool is intended to repair.
+
+---
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE).
