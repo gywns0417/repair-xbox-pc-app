@@ -4,6 +4,7 @@
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE)](#빠른-실행)
 [![Unofficial](https://img.shields.io/badge/Microsoft-비공식-lightgrey)](#상표-고지)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green)](#라이선스)
+<img width="2172" height="724" alt="7155348a-a341-4ff1-9ba2-2d1f115b60d5" src="https://github.com/user-attachments/assets/87aaacc0-2037-49cd-a58c-7009e5b39ae4" />
 
 **English:** [READMEen.md](READMEen.md)
 
