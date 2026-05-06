@@ -24,6 +24,9 @@ It does **not** bypass Xbox, Game Pass, Microsoft Store, account, payment, regio
 | PC Game Pass app install fails | Refreshes trusted root certificates used for signature validation |
 | `0x80096004` during Store install | Repairs certificate trust state through Windows Update root sync |
 | `wuauserv` will not start | Restores Windows Update service startup and required folders |
+| `wuauserv` or `DoSvc` stays Disabled | Repairs WubLock, service registry ACLs, and svchost group membership |
+| Store install fails with `0x8024500c` | Clears Windows Update policy cache (`UpdatePolicy\GPCache`) and Store cache |
+| Xbox page says Store client update is required | Updates Microsoft Store with `WSReset.exe -i` |
 | `The system cannot find the path specified` from Windows Update | Repairs `C:\Windows\SoftwareDistribution` when it is missing or blocked by a file |
 | Store installs fail on PC bangs, public PCs, or long-frozen Windows images | Restores the minimum update/certificate state needed for Store package validation |
 
@@ -76,16 +79,22 @@ The repair is usually not complete until the Xbox app is updated through Microso
 
 ## What It Does
 
-The repair flow is intentionally small and transparent:
 
 | Step | Action |
 | --- | --- |
 | 1 | Removes common Windows Update blocking policy values when present: `DisableWindowsUpdateAccess`, `NoAutoUpdate`, `UseWUServer` |
-| 2 | Repairs Windows Update working folders: `SoftwareDistribution`, `DataStore`, `Download`, and `catroot2` |
-| 3 | If `C:\Windows\SoftwareDistribution` is a file instead of a directory, backs it up as `.blocked-file.YYYYMMDDHHMMSS.bak` and recreates the directory |
-| 4 | Enables and starts `wuauserv`, `BITS`, `CryptSvc`, `UsoSvc`, `DoSvc`, and `InstallService` |
-| 5 | Generates a root certificate store file with `certutil -generateSSTFromWU` |
-| 6 | Imports the certificates into the trusted root store with `certutil -addstore -f Root` |
+| 2 | Removes WSUS/internet Windows Update blockers: `DoNotConnectToWindowsUpdateInternetLocations`, `WUServer`, `WUStatusServer`, and `UpdateServiceUrlAlternate` |
+| 3 | Repairs WubLock or PC bang management tool service registry ACL locks |
+| 4 | Restores missing `wuauserv`/`DoSvc` entries in `svchost` groups |
+| 5 | Removes leftover blocking values from the Windows Update internal policy cache (`UpdatePolicy\GPCache`) |
+| 6 | Repairs Windows Update working folders: `SoftwareDistribution`, `DataStore`, `Download`, and `catroot2` |
+| 7 | Enables and starts `wuauserv`, `BITS`, `CryptSvc`, `UsoSvc`, `DoSvc`, `InstallService`, and `WaaSMedicSvc` |
+| 8 | Verifies that the Windows Update search API works without `0x8024500c` |
+| 9 | Updates an old Microsoft Store client with `WSReset.exe -i` |
+| 10 | Clears Microsoft Store cache |
+| 11 | Generates a root certificate store file with `certutil -generateSSTFromWU` and imports it with `certutil -addstore -f Root` |
+| 12 | Opens the Xbox app Store page after a successful repair |
+
 
 ---
 
