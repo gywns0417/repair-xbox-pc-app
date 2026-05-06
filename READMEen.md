@@ -27,6 +27,7 @@ It does **not** bypass Xbox, Game Pass, Microsoft Store, account, payment, regio
 | `wuauserv` or `DoSvc` stays Disabled | Repairs WubLock, service registry ACLs, and svchost group membership |
 | Store install fails with `0x8024500c` | Clears Windows Update policy cache (`UpdatePolicy\GPCache`) and Store cache |
 | Xbox page says Store client update is required | Updates Microsoft Store with `WSReset.exe -i` |
+| Xbox app fails at launch with `0x80073cf3` | Repairs Gaming Services and `Microsoft.NET.Native.Framework/Runtime 2.2` dependencies |
 | `The system cannot find the path specified` from Windows Update | Repairs `C:\Windows\SoftwareDistribution` when it is missing or blocked by a file |
 | Store installs fail on PC bangs, public PCs, or long-frozen Windows images | Restores the minimum update/certificate state needed for Store package validation |
 
@@ -93,7 +94,10 @@ The repair is usually not complete until the Xbox app is updated through Microso
 | 9 | Updates an old Microsoft Store client with `WSReset.exe -i` |
 | 10 | Clears Microsoft Store cache |
 | 11 | Generates a root certificate store file with `certutil -generateSSTFromWU` and imports it with `certutil -addstore -f Root` |
-| 12 | Opens the Xbox app Store page after a successful repair |
+| 12 | Installs or repairs `Gaming Services (9MWPM2CQNLHN)` through the Store install API |
+| 13 | Verifies required `Microsoft.NET.Native.Framework.2.2` and `Microsoft.NET.Native.Runtime.2.2` versions |
+| 14 | Starts `GamingServices` and `GamingServicesNet` |
+| 15 | Opens the Xbox app, or the Xbox app Store page when the app is not installed |
 
 
 ---
